@@ -1,5 +1,7 @@
-import { Box, Button, Link } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
+import "./NavigationLinks.css";
 
 /**
  * @description - it renders the navigations linke like - home, login, signup in the top navigation bar. to add another link, please add in this component.
@@ -10,11 +12,19 @@ const NavigationLinks = ({ isLoggedIn, isAdmin }) => {
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
       {isLoggedIn ? (
-        <Link sx={{ color: "white" }}>Home</Link>
+        <Link className="nav-link" to="/">
+          Home
+        </Link>
       ) : (
-        <Link sx={{ color: "white" }}>Login</Link>
+        <Link className="nav-link" to="/login">
+          Login
+        </Link>
       )}
-      {isAdmin ? <Link sx={{ color: "white" }}>Add Products</Link> : null}
+      {isAdmin ? (
+        <Link className="nav-link" to="/">
+          Add Products
+        </Link>
+      ) : null}
       {isLoggedIn ? (
         <Button
           variant="contained"
@@ -23,7 +33,9 @@ const NavigationLinks = ({ isLoggedIn, isAdmin }) => {
           LOGOUT
         </Button>
       ) : (
-        <Link sx={{ color: "white" }}>Sign Up</Link>
+        <Link className="nav-link" to="/sign-up">
+          Sign Up
+        </Link>
       )}
     </Box>
   );
