@@ -1,5 +1,4 @@
 import "./App.css";
-import NavigationBar from "./components/NavigationBar/NavigationBar";
 import AppRouter from "./components/AppRouter/AppRouter";
 
 function App() {
