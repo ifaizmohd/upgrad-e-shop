@@ -1,8 +1,19 @@
 import React from "react";
 import CustomInput from "../CustomInput/CustomInput";
 import { Box, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
-const Form = ({ fields, buttonCta, formHandler, formData, handleSubmit }) => {
+const Form = ({
+  fields,
+  buttonCta,
+  formHandler,
+  formData,
+  handleSubmit,
+  linkToSignup,
+  linkPosition,
+  linkCta,
+  linkUrl,
+}) => {
   return (
     <Box
       component="section"
@@ -27,6 +38,11 @@ const Form = ({ fields, buttonCta, formHandler, formData, handleSubmit }) => {
       <Button variant="contained" onClick={handleSubmit}>
         {buttonCta}
       </Button>
+      {linkToSignup ? (
+        <Link to={linkUrl} style={{ alignSelf: linkPosition }}>
+          {linkCta}
+        </Link>
+      ) : null}
     </Box>
   );
 };

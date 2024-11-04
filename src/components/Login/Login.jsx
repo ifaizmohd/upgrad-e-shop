@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Form from "../../common/components/Form/Form";
 import PageLayout from "../../common/components/PageLayout/PageLayout";
 import LockIcon from "../../common/components/LockIcon/LockIcon";
-import { Authentication } from "../../common/api";
+import { AuthContext } from "../../common/Provider/Auth.context";
 
 const LoginPage = () => {
+  const linkCta = `Don't have an account? Sign Up`;
+  const linkUrl = "/sign-up";
   const fields = [
     {
       type: "email",
       label: "Email",
-      name: "email",
+      name: "username",
     },
     {
       type: "password",
@@ -18,24 +20,20 @@ const LoginPage = () => {
     },
   ];
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
+  const { login } = useContext(AuthContext);
+
   const formHandler = (e) => {
     e.preventDefault();
-    console.log(e.target.name, e.target.value);
-    if (e.target.name === "email") {
-      setFormData({ ...formData, username: e.target.value });
-    }
     setFormData({ ...formData, [e.target?.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    const loginRes = await Authentication.login(formData);
-    console.log({ loginRes });
+    await login(formData);
   };
 
   return (
@@ -47,6 +45,10 @@ const LoginPage = () => {
         formData={formData}
         formHandler={formHandler}
         handleSubmit={handleSubmit}
+        linkToSignup={true}
+        linkPosition="flex-start"
+        linkCta={linkCta}
+        linkUrl={linkUrl}
       />
     </PageLayout>
   );
