@@ -11,9 +11,16 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product, isAdmin }) => {
-  const { name, price, imageUrl, description } = product;
+  const navigate = useNavigate();
+  const { name, price, imageUrl, description, id } = product;
+  const navigateToPdp = (e) => {
+    e.preventDefault();
+    const url = `/products/${id}`;
+    navigate(url);
+  };
   return (
     <Card sx={{ maxWidth: 345, maxHeight: 445 }}>
       <CardMedia
@@ -43,6 +50,7 @@ const ProductCard = ({ product, isAdmin }) => {
           size="small"
           variant="contained"
           sx={{ backgroundColor: "#3f51b5" }}
+          onClick={navigateToPdp}
         >
           Buy
         </Button>

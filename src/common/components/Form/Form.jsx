@@ -3,6 +3,7 @@ import CustomInput from "../CustomInput/CustomInput";
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { formDataValidator, isInvalidData } from "../../lib/validator";
+import CustomButton from "../CustomButton/CustomButton";
 
 const Form = ({
   fields,
@@ -48,14 +49,13 @@ const Form = ({
           {...field}
         />
       ))}
-      <Button
+      <CustomButton
         variant="contained"
         onClick={handleSubmit}
-        sx={{ backgroundColor: "#3f51b5" }}
         disabled={disableSubmitButton}
       >
         {buttonCta}
-      </Button>
+      </CustomButton>
       {linkToSignup ? (
         <Link to={linkUrl} style={{ alignSelf: linkPosition }}>
           {linkCta}

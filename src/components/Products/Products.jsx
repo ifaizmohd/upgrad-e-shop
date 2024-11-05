@@ -94,7 +94,7 @@ const ProductsPage = () => {
           </Select>
           <Grid container spacing={3}>
             {sortedProducts.map((product) => (
-              <Grid item key={product.id} xs={12} sm={6} md={4}>
+              <Grid key={product?.id} xs={12} sm={6} md={4}>
                 <ProductCard product={product} />
               </Grid>
             ))}
