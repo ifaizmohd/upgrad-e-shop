@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ProductsApi } from "../../common/api";
 import PageLayout from "../../common/components/PageLayout/PageLayout";
 import { Box, CardMedia, Typography } from "@mui/material";
@@ -9,6 +9,12 @@ import CustomButton from "../../common/components/CustomButton/CustomButton";
 const ProductDetailPage = () => {
   const [productInfo, setProductInfo] = useState({});
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const navigateToOrdersPage = (e) => {
+    e.preventDefault();
+    navigate("/orders");
+  };
 
   useEffect(() => {
     async function getProductDetails() {
@@ -24,13 +30,15 @@ const ProductDetailPage = () => {
           display: "flex",
           justifyContent: "space-between",
           gap: 2,
+          alignItems: "flex-start",
         }}
       >
         <CardMedia
           component="img"
           src={productInfo?.imageUrl}
           alt={productInfo?.name}
-          sx={{ objectFit: "contain", m: 5 }}
+          sx={{ objectFit: "contain", m: "0 40px 0 40px" }}
+          height="450"
         />
         <Box
           sx={{
@@ -69,7 +77,9 @@ const ProductDetailPage = () => {
           </Typography>
           <Typography color="red">₹{productInfo?.price}</Typography>
           <CustomInput label="Enter Quantity" required type="number" />
-          <CustomButton variant="contained">PLACE ORDER</CustomButton>
+          <CustomButton variant="contained" onClick={navigateToOrdersPage}>
+            PLACE ORDER
+          </CustomButton>
         </Box>
       </Box>
     </PageLayout>

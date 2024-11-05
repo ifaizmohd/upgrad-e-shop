@@ -7,6 +7,7 @@ const LoginPage = lazy(() => import("../Login/Login"));
 const SignupPage = lazy(() => import("../Signup/Signup"));
 const ProductsPage = lazy(() => import("../Products/Products"));
 const ProductDetailPage = lazy(() => import("../ProductDetail/ProductDetail"));
+const OrdersPage = lazy(() => import("../Orders/Orders"));
 
 /**
  * This component defines the main routing structure for the application.
@@ -30,6 +31,8 @@ const AppRouter = () => {
           <Route path="/products" element={<ProductsPage />} />
           {/* Product Detail Page Route (dynamic route with ID) */}
           <Route path="/products/:id" element={<ProductDetailPage />} />
+          {/* Orders Page Route */}
+          <Route path="/orders" element={<OrdersPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
