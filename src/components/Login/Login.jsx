@@ -37,7 +37,7 @@ const LoginPage = () => {
   };
 
   return (
-    <PageLayout>
+    <PageLayout containerSize="sm" topMargin="4em">
       <LockIcon label="Sign in" />
       <Form
         fields={fields}

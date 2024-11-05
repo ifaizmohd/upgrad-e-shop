@@ -12,15 +12,20 @@ const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = async (formData) => {
-    const res = await Authentication.login(formData);
-    const data = await res?.json();
-    if (data && data.token) {
-      saveToStorage("token", data.token);
-      setUserToken(data.token);
-      setIsLoggedIn(true);
-      if (window && window.location) {
-        window.location.href = "/";
+    try {
+      const res = await Authentication.login(formData);
+      console.log({ res });
+      const data = await res?.json();
+      if (data && data.token) {
+        saveToStorage("token", data.token);
+        setUserToken(data.token);
+        setIsLoggedIn(true);
+        if (window && window.location) {
+          window.location.href = "/products";
+        }
       }
+    } catch (e) {
+      console.log(e);
     }
   };
 

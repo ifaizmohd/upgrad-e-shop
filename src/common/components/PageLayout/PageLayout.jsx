@@ -1,16 +1,16 @@
 import { Container } from "@mui/material";
 import React from "react";
 
-const PageLayout = ({ children }) => {
+const PageLayout = ({ children, containerSize, topMargin }) => {
   return (
     <Container
-      maxWidth="sm"
+      maxWidth={containerSize}
       sx={{
-        height: "90vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
+        marginTop: topMargin,
       }}
     >
       {children}

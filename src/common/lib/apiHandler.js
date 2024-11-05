@@ -15,7 +15,7 @@ class ApiHandler {
    * Sends a POST request to the specified endpoint.
    * @param {string} url - The endpoint URL to send the POST request to (appended to baseUrl).
    * @param {Object} reqBody - The request body data to be sent in JSON format.
-   * @returns {Promise} - Resolves with the response from the server, rejects with an error message if the request fails.
+   * @returns {Promise<Response>} - Resolves with the response object from the server, rejects with an error message if the request fails.
    */
   post(url, reqBody) {
     return new Promise(async (resolve, reject) => {
@@ -29,9 +29,19 @@ class ApiHandler {
           },
           body: JSON.stringify(reqBody),
         });
-        resolve(response); // Resolve with the server response
+
+        // Check if the response status is OK (2xx), else reject with a message
+        if (!response.ok) {
+          const errorMsg = await response.text(); // Capture error response as text
+          reject(
+            `POST request failed with status ${response.status}: ${errorMsg}`
+          );
+          return;
+        }
+
+        resolve(response); // Resolve with the server response if successful
       } catch (error) {
-        reject(error?.message); // Reject with error message in case of failure
+        reject(`Network or server error: ${error.message}`); // Reject with error message in case of failure
       }
     });
   }
@@ -39,7 +49,7 @@ class ApiHandler {
   /**
    * Sends a GET request to the specified endpoint.
    * @param {string} url - The endpoint URL to send the GET request to (appended to baseUrl).
-   * @returns {Promise} - Resolves with the response from the server, rejects with an error message if the request fails.
+   * @returns {Promise<Response>} - Resolves with the response object from the server, rejects with an error message if the request fails.
    */
   get(url) {
     return new Promise(async (resolve, reject) => {
@@ -52,9 +62,19 @@ class ApiHandler {
             "Content-Type": "application/json",
           },
         });
-        resolve(response); // Resolve with the server response
+
+        // Check if the response status is OK (2xx), else reject with a message
+        if (!response.ok) {
+          const errorMsg = await response.text(); // Capture error response as text
+          reject(
+            `GET request failed with status ${response.status}: ${errorMsg}`
+          );
+          return;
+        }
+
+        resolve(response); // Resolve with the server response if successful
       } catch (error) {
-        reject(error?.message); // Reject with error message in case of failure
+        reject(`Network or server error: ${error.message}`); // Reject with error message in case of failure
       }
     });
   }

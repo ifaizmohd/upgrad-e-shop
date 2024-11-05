@@ -10,7 +10,6 @@ const NavigationLogo = () => {
         edge="start"
         color="inherit"
         aria-label="open drawer"
-        sx={{ mr: 2 }}
       >
         <ShoppingCartIcon />
       </IconButton>
