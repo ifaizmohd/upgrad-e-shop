@@ -1,25 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
-import {
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  Button,
-  ToggleButton,
-  ToggleButtonGroup,
-  TextField,
-  Select,
-  MenuItem,
-  CircularProgress,
-  AppBar,
-  Toolbar,
-} from "@mui/material";
+import { Typography, MenuItem, CircularProgress, Select } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { ProductsApi } from "../../common/api";
+import ProductCategories from "../../common/components/ProductCategories/ProductCategories";
+import ProductCard from "../../common/components/ProductCard/ProductCard";
+import PageLayout from "../../common/components/PageLayout/PageLayout";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("ALL");
   const [sortBy, setSortBy] = useState("Default");
   const [searchTerm, setSearchTerm] = useState("");
@@ -43,27 +31,11 @@ const ProductsPage = () => {
       }
     };
 
-    const fetchCategories = async () => {
-      setLoading(true);
-      try {
-        const data = await ProductsApi.fetchCategories();
-        if (data) {
-          setCategories(data);
-        } else {
-          setError("Failed to fetch categories");
-        }
-      } catch (error) {
-        setError("Error fetching categories");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchProducts();
-    fetchCategories();
   }, []);
 
   const handleCategoryChange = (event, newCategory) => {
+    event.preventDefault();
     setSelectedCategory(newCategory);
   };
 
@@ -104,25 +76,16 @@ const ProductsPage = () => {
   const isAdmin = true; // Replace with actual logic to check if the user is an admin
 
   return (
-    <div>
+    <PageLayout containerSize="xl">
       {loading ? (
         <CircularProgress />
       ) : (
         <>
           {error && <Typography color="error">{error}</Typography>}
-          <ToggleButtonGroup
-            value={selectedCategory}
-            exclusive
-            onChange={handleCategoryChange}
-            aria-label="product categories"
-          >
-            <ToggleButton value="ALL">ALL</ToggleButton>
-            {categories.map((category) => (
-              <ToggleButton key={category} value={category}>
-                {category}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
+          <ProductCategories
+            selectedCategory={selectedCategory}
+            handleCategoryChange={handleCategoryChange}
+          />
           <Select value={sortBy} onChange={handleSortChange}>
             <MenuItem value="Default">Default</MenuItem>
             <MenuItem value="Price: High to Low">Price: High to Low</MenuItem>
@@ -132,40 +95,13 @@ const ProductsPage = () => {
           <Grid container spacing={3}>
             {sortedProducts.map((product) => (
               <Grid item key={product.id} xs={12} sm={6} md={4}>
-                <Card>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={product.imageUrl} // Replace with actual image URLs
-                    alt={product.name}
-                  />
-                  <CardContent>
-                    <Typography variant="h6">{product.name}</Typography>
-                    <Typography variant="body2">
-                      {product.description}
-                    </Typography>
-                    <Typography variant="h6">₹{product.price}</Typography>
-                    <Button variant="contained" color="primary">
-                      BUY
-                    </Button>
-                    {isAdmin && (
-                      <div>
-                        <Button variant="contained" color="secondary">
-                          Edit
-                        </Button>
-                        <Button variant="contained" color="error">
-                          Delete
-                        </Button>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
+                <ProductCard product={product} />
               </Grid>
             ))}
           </Grid>
         </>
       )}
-    </div>
+    </PageLayout>
   );
 };
 
