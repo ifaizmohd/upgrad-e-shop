@@ -10,7 +10,7 @@ import NavigationLogo from "../NavigationLogo/NavigationLogo";
  * @prop {boolean} isAdmin - it allows us to know if the user is admin or not.
  * @returns {React.ReactElement}
  */
-const NavigationBar = ({ isLoggedIn, isAdmin }) => {
+const NavigationBar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -24,7 +24,7 @@ const NavigationBar = ({ isLoggedIn, isAdmin }) => {
         >
           <NavigationLogo />
           <SearchBar />
-          <NavigationLinks isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
+          <NavigationLinks />
         </Toolbar>
       </AppBar>
     </Box>

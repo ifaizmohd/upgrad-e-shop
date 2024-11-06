@@ -7,7 +7,7 @@ const ProductCategories = ({ selectedCategory, handleCategoryChange }) => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const data = await ProductsApi.fetchCategories();
+      const { data } = await ProductsApi.fetchCategories();
       if (data) {
         setCategories(data);
       }

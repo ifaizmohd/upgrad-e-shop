@@ -9,8 +9,8 @@ import { AuthContext } from "../../common/Provider/Auth.context";
  * @param {*} param0
  * @returns {React.ReactElement} -
  */
-const NavigationLinks = ({ isAdmin }) => {
-  const { isLoggedIn, logout } = useContext(AuthContext);
+const NavigationLinks = () => {
+  const { isLoggedIn, logout, isAdmin } = useContext(AuthContext);
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
       <Box sx={{ display: "flex", alignItems: "center", gap: "3em" }}>
@@ -23,8 +23,11 @@ const NavigationLinks = ({ isAdmin }) => {
             Login
           </Link>
         )}
+        <Link className="nav-link" to="/products">
+          Products
+        </Link>
         {isAdmin ? (
-          <Link className="nav-link" to="/">
+          <Link className="nav-link" to="/add-product">
             Add Products
           </Link>
         ) : null}
