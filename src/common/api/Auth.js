@@ -28,4 +28,8 @@ export class Auth {
   async signUp(body) {
     return await this.apiHandler.post("/auth/signup", body); // Use ApiHandler to send POST request to signup endpoint
   }
+
+  async getUserDetails(id) {
+    return await this.apiHandler.get(`/users/${id}`);
+  }
 }
