@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Typography, MenuItem, CircularProgress, Select } from "@mui/material";
+import {
+  Typography,
+  MenuItem,
+  CircularProgress,
+  Select,
+  Box,
+} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { ProductsApi } from "../../common/api";
 import ProductCategories from "../../common/components/ProductCategories/ProductCategories";
@@ -13,12 +19,13 @@ const ProductsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [refetchProducts, setRefetchProducts] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const data = await ProductsApi.fetchProducts();
+        const { data } = await ProductsApi.fetchProducts();
         if (data) {
           setProducts(data);
         } else {
@@ -32,7 +39,7 @@ const ProductsPage = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [refetchProducts]);
 
   const handleCategoryChange = (event, newCategory) => {
     event.preventDefault();
@@ -48,7 +55,7 @@ const ProductsPage = () => {
   };
 
   const filteredProducts = useMemo(() => {
-    return products.filter((product) => {
+    return products?.filter((product) => {
       const matchesCategory =
         selectedCategory === "ALL" || product.category === selectedCategory;
       const matchesSearchTerm = product.name
@@ -59,7 +66,7 @@ const ProductsPage = () => {
   }, [products, selectedCategory, searchTerm]);
 
   const sortedProducts = useMemo(() => {
-    return [...filteredProducts].sort((a, b) => {
+    return [...filteredProducts]?.sort((a, b) => {
       switch (sortBy) {
         case "Price: High to Low":
           return b.price - a.price;
@@ -73,34 +80,41 @@ const ProductsPage = () => {
     });
   }, [filteredProducts, sortBy]);
 
-  const isAdmin = true; // Replace with actual logic to check if the user is an admin
-
   return (
     <PageLayout containerSize="xl">
-      {loading ? (
-        <CircularProgress />
-      ) : (
-        <>
-          {error && <Typography color="error">{error}</Typography>}
-          <ProductCategories
-            selectedCategory={selectedCategory}
-            handleCategoryChange={handleCategoryChange}
-          />
-          <Select value={sortBy} onChange={handleSortChange}>
-            <MenuItem value="Default">Default</MenuItem>
-            <MenuItem value="Price: High to Low">Price: High to Low</MenuItem>
-            <MenuItem value="Price: Low to High">Price: Low to High</MenuItem>
-            <MenuItem value="Newest">Newest</MenuItem>
-          </Select>
-          <Grid container spacing={3}>
-            {sortedProducts.map((product) => (
-              <Grid key={product?.id} xs={12} sm={6} md={4}>
-                <ProductCard product={product} />
-              </Grid>
-            ))}
+      {error && <Typography color="error">{error}</Typography>}
+      <ProductCategories
+        selectedCategory={selectedCategory}
+        handleCategoryChange={handleCategoryChange}
+      />
+      <Box
+        display="flex"
+        sx={{
+          position: "relative",
+          right: 700,
+          width: "600",
+          height: "auto",
+          padding: "16px",
+        }}
+      >
+        <Select value={sortBy} onChange={handleSortChange}>
+          <MenuItem value="Default">Sort By</MenuItem>
+          <MenuItem value="Price: High to Low">Price: High to Low</MenuItem>
+          <MenuItem value="Price: Low to High">Price: Low to High</MenuItem>
+          <MenuItem value="Newest">Newest</MenuItem>
+        </Select>
+      </Box>
+      <Grid container spacing={12}>
+        {sortedProducts?.map((product) => (
+          <Grid key={product?.id} xs={12} sm={6} md={4}>
+            <ProductCard
+              product={product}
+              refetchProducts={setRefetchProducts}
+            />
           </Grid>
-        </>
-      )}
+        ))}
+        {loading ? <CircularProgress /> : null}
+      </Grid>
     </PageLayout>
   );
 };

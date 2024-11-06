@@ -6,17 +6,26 @@ export class Product {
   }
 
   async fetchProducts() {
-    const data = await this.apiHandler.get("/products");
-    return await data?.json();
+    return await this.apiHandler.get("/products");
   }
 
   async fetchProductDetails(id) {
-    const data = await this.apiHandler.get(`/products/${id}`);
-    return await data?.json();
+    return await this.apiHandler.get(`/products/${id}`);
   }
 
   async fetchCategories() {
-    const data = await this.apiHandler.get("/products/categories");
-    return await data?.json();
+    return await this.apiHandler.get("/products/categories");
+  }
+
+  async createProduct(payload) {
+    return await this.apiHandler.post("/products?filter=noResponse", payload);
+  }
+
+  async deleteProduct(id) {
+    return await this.apiHandler.delete(`/products/${id}?filter=noResponse`);
+  }
+
+  async modifyProduct(id, payload) {
+    return await this.apiHandler.put(`/products/${id}`, payload);
   }
 }
