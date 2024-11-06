@@ -8,6 +8,10 @@ const SignupPage = lazy(() => import("../Signup/Signup"));
 const ProductsPage = lazy(() => import("../Products/Products"));
 const ProductDetailPage = lazy(() => import("../ProductDetail/ProductDetail"));
 const OrdersPage = lazy(() => import("../Orders/Orders"));
+const AdminRoute = lazy(() =>
+  import("../../common/components/AdminRoute/AdminRoute")
+);
+const AddProductPage = lazy(() => import("../AddProduct/AddProduct"));
 
 /**
  * This component defines the main routing structure for the application.
@@ -33,6 +37,10 @@ const AppRouter = () => {
           <Route path="/products/:id" element={<ProductDetailPage />} />
           {/* Orders Page Route */}
           <Route path="/orders" element={<OrdersPage />} />
+          {/* Add Products Page Route */}
+          <Route element={<AdminRoute />}>
+            <Route path="/add-product" element={<AddProductPage />} />
+          </Route>
         </Routes>
       </Suspense>
     </BrowserRouter>
