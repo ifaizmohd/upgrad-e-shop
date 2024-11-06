@@ -39,3 +39,11 @@ export function formDataValidator(formData) {
 export function isInvalidData(errorObj) {
   return !!Object.keys(errorObj).find((key) => !errorObj[key].isValid);
 }
+
+export function validateAddress(formData) {
+  const errorObj = {};
+  Object.keys(formData).forEach((key) => {
+    errorObj[key] = { isValid: !!formData[key] };
+  });
+  return errorObj;
+}
