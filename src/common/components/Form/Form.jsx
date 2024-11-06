@@ -39,13 +39,13 @@ const Form = ({
     >
       {fields?.map((field) => (
         <CustomInput
-          key={field.name}
-          type={field.type}
+          key={field?.name}
+          type={field?.type}
           variant="outlined"
-          label={field.label}
+          label={field?.label}
           onChange={formHandler}
-          value={formData[field.name]}
-          error={formData[field.name] && !error[field?.name]?.isValid}
+          value={formData[field?.name]}
+          error={!!formData[field?.name] && !error[field?.name]?.isValid}
           {...field}
         />
       ))}
