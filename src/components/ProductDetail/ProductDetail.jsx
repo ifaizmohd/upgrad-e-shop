@@ -8,21 +8,23 @@ import CustomButton from "../../common/components/CustomButton/CustomButton";
 
 const ProductDetailPage = () => {
   const [productInfo, setProductInfo] = useState({});
+  const [qty, setQty] = useState(1);
   const { id } = useParams();
   const navigate = useNavigate();
 
   const navigateToOrdersPage = (e) => {
     e.preventDefault();
-    navigate("/orders");
+    navigate("/orders", { state: { pid: id, qty } });
   };
 
   useEffect(() => {
     async function getProductDetails() {
-      const res = await ProductsApi.fetchProductDetails(id);
-      setProductInfo(res);
+      const { data } = await ProductsApi.fetchProductDetails(id);
+      setProductInfo(data);
     }
     getProductDetails();
-  }, []);
+  }, [id]);
+
   return (
     <PageLayout containerSize="xl" topMargin="4em">
       <Box
@@ -37,7 +39,7 @@ const ProductDetailPage = () => {
           component="img"
           src={productInfo?.imageUrl}
           alt={productInfo?.name}
-          sx={{ objectFit: "contain", m: "0 40px 0 40px" }}
+          sx={{ objectFit: "contain", m: "0 40px 0 40px", width: "450px" }}
           height="450"
         />
         <Box
@@ -76,8 +78,19 @@ const ProductDetailPage = () => {
             {productInfo?.description}
           </Typography>
           <Typography color="red">₹{productInfo?.price}</Typography>
-          <CustomInput label="Enter Quantity" required type="number" />
-          <CustomButton variant="contained" onClick={navigateToOrdersPage}>
+          <CustomInput
+            label="Enter Quantity"
+            required
+            type="number"
+            value={qty}
+            onChange={(e) => setQty(e.target.value)}
+            error={qty > productInfo?.availableItems}
+          />
+          <CustomButton
+            variant="contained"
+            onClick={navigateToOrdersPage}
+            disabled={qty < 1 || qty > productInfo?.availableItems}
+          >
             PLACE ORDER
           </CustomButton>
         </Box>
