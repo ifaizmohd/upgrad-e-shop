@@ -2,6 +2,8 @@ import React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { InputBase } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
+import { useSearch } from "../Providers/Search.provider";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -44,6 +46,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const SearchBar = () => {
+  const navigate = useNavigate();
+  const { searchTerm, setSearchTerm } = useSearch();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchTerm(e.target.value);
+  };
+
+  const navigateToProductsPage = (e) => {
+    e.preventDefault();
+    navigate("/products");
+  };
+
   return (
     <Search>
       <SearchIconWrapper>
@@ -52,6 +67,9 @@ const SearchBar = () => {
       <StyledInputBase
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
+        onFocus={navigateToProductsPage}
+        value={searchTerm}
+        onChange={handleSearch}
       />
     </Search>
   );

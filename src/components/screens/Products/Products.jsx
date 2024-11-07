@@ -11,15 +11,16 @@ import { ProductsApi } from "../../../common/api";
 import ProductCategories from "../../ProductCategories/ProductCategories";
 import ProductCard from "../../ProductCard/ProductCard";
 import PageLayout from "../../PageLayout/PageLayout";
+import { useSearch } from "../../Providers/Search.provider";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("ALL");
   const [sortBy, setSortBy] = useState("Default");
-  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [refetchProducts, setRefetchProducts] = useState(false);
+  const { searchTerm } = useSearch();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -48,10 +49,6 @@ const ProductsPage = () => {
 
   const handleSortChange = (event) => {
     setSortBy(event.target.value);
-  };
-
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
   };
 
   const filteredProducts = useMemo(() => {

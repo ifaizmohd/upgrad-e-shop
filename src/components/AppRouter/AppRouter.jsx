@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavigationBar from "../NavigationBar/NavigationBar";
+import SearchProvider from "../Providers/Search.provider";
 
 const HomePage = lazy(() => import("../screens/Home/Home"));
 const LoginPage = lazy(() => import("../screens/Login/Login"));
@@ -23,25 +24,27 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Suspense fallback={<div>...Loading</div>}>
-        <NavigationBar />
-        <Routes>
-          {/* Home Page Route */}
-          <Route path="/" element={<HomePage />} />
-          {/* Login Page Route */}
-          <Route path="/login" element={<LoginPage />} />
-          {/* Signup Page Route */}
-          <Route path="/sign-up" element={<SignupPage />} />
-          {/* Products Page Route */}
-          <Route path="/products" element={<ProductsPage />} />
-          {/* Product Detail Page Route (dynamic route with ID) */}
-          <Route path="/products/:id" element={<ProductDetailPage />} />
-          {/* Orders Page Route */}
-          <Route path="/orders" element={<OrdersPage />} />
-          {/* Add Products Page Route */}
-          <Route element={<AdminRoute />}>
-            <Route path="/add-product" element={<AddProductPage />} />
-          </Route>
-        </Routes>
+        <SearchProvider>
+          <NavigationBar />
+          <Routes>
+            {/* Home Page Route */}
+            <Route path="/" element={<HomePage />} />
+            {/* Login Page Route */}
+            <Route path="/login" element={<LoginPage />} />
+            {/* Signup Page Route */}
+            <Route path="/sign-up" element={<SignupPage />} />
+            {/* Products Page Route */}
+            <Route path="/products" element={<ProductsPage />} />
+            {/* Product Detail Page Route (dynamic route with ID) */}
+            <Route path="/products/:id" element={<ProductDetailPage />} />
+            {/* Orders Page Route */}
+            <Route path="/orders" element={<OrdersPage />} />
+            {/* Add Products Page Route */}
+            <Route element={<AdminRoute />}>
+              <Route path="/add-product" element={<AddProductPage />} />
+            </Route>
+          </Routes>
+        </SearchProvider>
       </Suspense>
     </BrowserRouter>
   );
