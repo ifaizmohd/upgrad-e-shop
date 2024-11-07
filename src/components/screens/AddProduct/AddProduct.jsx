@@ -1,12 +1,12 @@
 import { Typography } from "@mui/material";
-import PageLayout from "../../common/components/PageLayout/PageLayout";
-import Form from "../../common/components/Form/Form";
+import PageLayout from "../../PageLayout/PageLayout";
+import Form from "../../Form/Form";
 import { useContext, useState } from "react";
-import { ProductsApi } from "../../common/api";
-import { useNotification } from "../../common/Provider/Notification.provider";
-import { checkForSessionErrors } from "../../common/lib/utils";
+import { ProductsApi } from "../../../common/api";
+import { useNotification } from "../../Providers/Notification.provider";
+import { checkForSessionErrors } from "../../../common/lib/utils";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../common/Provider/Auth.context";
+import { AuthContext } from "../../Providers/Auth.context";
 
 const AddProduct = () => {
   const fields = [

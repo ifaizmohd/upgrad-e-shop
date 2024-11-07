@@ -7,10 +7,10 @@ import {
   Box,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { ProductsApi } from "../../common/api";
-import ProductCategories from "../../common/components/ProductCategories/ProductCategories";
-import ProductCard from "../../common/components/ProductCard/ProductCard";
-import PageLayout from "../../common/components/PageLayout/PageLayout";
+import { ProductsApi } from "../../../common/api";
+import ProductCategories from "../../ProductCategories/ProductCategories";
+import ProductCard from "../../ProductCard/ProductCard";
+import PageLayout from "../../PageLayout/PageLayout";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);

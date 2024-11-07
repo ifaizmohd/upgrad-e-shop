@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ProductsApi } from "../../api";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { ProductsApi } from "../../common/api";
 
 const ProductCategories = ({ selectedCategory, handleCategoryChange }) => {
   const [categories, setCategories] = useState([]);

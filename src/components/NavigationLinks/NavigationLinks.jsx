@@ -2,7 +2,7 @@ import { Box, Button } from "@mui/material";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./NavigationLinks.css";
-import { AuthContext } from "../../common/Provider/Auth.context";
+import { AuthContext } from "../Providers/Auth.context";
 
 /**
  * @description - it renders the navigations linke like - home, login, signup in the top navigation bar. to add another link, please add in this component.

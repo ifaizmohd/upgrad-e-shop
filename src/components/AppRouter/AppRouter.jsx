@@ -2,16 +2,16 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavigationBar from "../NavigationBar/NavigationBar";
 
-const HomePage = lazy(() => import("../Home/Home"));
-const LoginPage = lazy(() => import("../Login/Login"));
-const SignupPage = lazy(() => import("../Signup/Signup"));
-const ProductsPage = lazy(() => import("../Products/Products"));
-const ProductDetailPage = lazy(() => import("../ProductDetail/ProductDetail"));
-const OrdersPage = lazy(() => import("../Orders/Orders"));
-const AdminRoute = lazy(() =>
-  import("../../common/components/AdminRoute/AdminRoute")
+const HomePage = lazy(() => import("../screens/Home/Home"));
+const LoginPage = lazy(() => import("../screens/Login/Login"));
+const SignupPage = lazy(() => import("../screens/Signup/Signup"));
+const ProductsPage = lazy(() => import("../screens/Products/Products"));
+const ProductDetailPage = lazy(() =>
+  import("../screens/ProductDetail/ProductDetail")
 );
-const AddProductPage = lazy(() => import("../AddProduct/AddProduct"));
+const OrdersPage = lazy(() => import("../screens/Orders/Orders"));
+const AdminRoute = lazy(() => import("../AdminRoute/AdminRoute"));
+const AddProductPage = lazy(() => import("../screens/AddProduct/AddProduct"));
 
 /**
  * This component defines the main routing structure for the application.

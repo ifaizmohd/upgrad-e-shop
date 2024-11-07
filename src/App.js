@@ -1,6 +1,6 @@
 import "./App.css";
-import AuthProvider from "./common/Provider/Auth.provider";
-import { NotificationProvider } from "./common/Provider/Notification.provider";
+import AuthProvider from "./components/Providers/Auth.provider";
+import { NotificationProvider } from "./components/Providers/Notification.provider";
 import AppRouter from "./components/AppRouter/AppRouter";
 
 function App() {

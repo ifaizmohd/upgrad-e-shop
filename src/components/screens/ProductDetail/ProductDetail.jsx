@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ProductsApi } from "../../common/api";
-import PageLayout from "../../common/components/PageLayout/PageLayout";
+import { ProductsApi } from "../../../common/api";
+import PageLayout from "../../PageLayout/PageLayout";
 import { Box, CardMedia, Typography } from "@mui/material";
-import CustomInput from "../../common/components/CustomInput/CustomInput";
-import CustomButton from "../../common/components/CustomButton/CustomButton";
+import CustomInput from "../../CustomInput/CustomInput";
+import CustomButton from "../../CustomButton/CustomButton";
 
 const ProductDetailPage = () => {
   const [productInfo, setProductInfo] = useState({});

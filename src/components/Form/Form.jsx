@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CustomInput from "../CustomInput/CustomInput";
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { formDataValidator, isInvalidData } from "../../lib/validator";
+import { formDataValidator, isInvalidData } from "../../common/lib/validator";
 import CustomButton from "../CustomButton/CustomButton";
 
 const Form = ({

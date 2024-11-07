@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import Form from "../../common/components/Form/Form";
-import PageLayout from "../../common/components/PageLayout/PageLayout";
-import LockIcon from "../../common/components/LockIcon/LockIcon";
-import { AuthContext } from "../../common/Provider/Auth.context";
+import Form from "../../Form/Form";
+import PageLayout from "../../PageLayout/PageLayout";
+import LockIcon from "../../LockIcon/LockIcon";
+import { AuthContext } from "../../Providers/Auth.context";
 
 const LoginPage = () => {
   const linkCta = `Don't have an account? Sign Up`;

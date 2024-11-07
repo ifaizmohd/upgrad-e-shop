@@ -3,8 +3,8 @@ import {
   getItemFromStorage,
   removeItemFromStorage,
   saveToStorage,
-} from "../lib/utils";
-import { Authentication } from "../api";
+} from "../../common/lib/utils";
+import { Authentication } from "../../common/api";
 import { AuthContext } from "./Auth.context";
 
 const AuthProvider = ({ children }) => {

@@ -14,12 +14,12 @@ import {
   Select,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNotification } from "../../common/Provider/Notification.provider";
-import { isInvalidData, validateAddress } from "../../common/lib/validator";
-import { AddressApi, OrderApi, ProductsApi } from "../../common/api";
-import { AuthContext } from "../../common/Provider/Auth.context";
+import { useNotification } from "../../Providers/Notification.provider";
+import { isInvalidData, validateAddress } from "../../../common/lib/validator";
+import { AddressApi, OrderApi, ProductsApi } from "../../../common/api";
+import { AuthContext } from "../../Providers/Auth.context";
 import { useLocation, useNavigate } from "react-router-dom";
-import { checkForSessionErrors } from "../../common/lib/utils";
+import { checkForSessionErrors } from "../../../common/lib/utils";
 
 const theme = createTheme({
   palette: {

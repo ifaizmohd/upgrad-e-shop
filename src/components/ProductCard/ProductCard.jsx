@@ -12,10 +12,10 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Provider/Auth.context";
-import { ProductsApi } from "../../api";
-import { checkForSessionErrors } from "../../lib/utils";
-import { useNotification } from "../../Provider/Notification.provider";
+import { AuthContext } from "../Providers/Auth.context";
+import { ProductsApi } from "../../common/api";
+import { checkForSessionErrors } from "../../common/lib/utils";
+import { useNotification } from "../Providers/Notification.provider";
 import CustomDialog from "../CustomDialog/CustomDialog";
 
 const ProductCard = ({ product, refetchProducts }) => {
