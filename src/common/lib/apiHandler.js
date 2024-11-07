@@ -1,5 +1,4 @@
 import { apiClient } from "./apiClient";
-import { getItemFromStorage } from "./utils";
 
 // Class responsible for handling API requests (GET and POST) with a configurable base URL
 class ApiHandler {
@@ -14,7 +13,6 @@ class ApiHandler {
    */
   config(config) {
     this.baseUrl = config?.baseUrl; // Set baseUrl if provided in config
-    this.token = getItemFromStorage("token");
   }
 
   /**
@@ -32,7 +30,7 @@ class ApiHandler {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${this.token}`,
+            "x-auth-token": `${this.token}`,
           },
           body: JSON.stringify(payload),
         });
@@ -57,7 +55,7 @@ class ApiHandler {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${this.token}`,
+            "x-auth-token": `${this.token}`,
           },
         });
         resolve(response); // Resolve with the server response if successful
@@ -76,7 +74,7 @@ class ApiHandler {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${this.token}`,
+            "x-auth-token": `${this.token}`,
           },
         });
         resolve(response); // Resolve with the server response if successful
@@ -95,7 +93,7 @@ class ApiHandler {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${this.token}`,
+            "x-auth-token": `${this.token}`,
           },
           body: JSON.stringify(payload),
         });

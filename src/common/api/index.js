@@ -7,7 +7,7 @@ import { Order } from "./Order";
 import { Product } from "./Products";
 
 // Define the base URL for API requests
-const baseUrl = "http://localhost:8080/api";
+const baseUrl = "https://dev-project-ecommerce.upgrad.dev/api";
 
 // Configure apiHandler to use the defined base URL for all requests
 apiHandler.config({ baseUrl });

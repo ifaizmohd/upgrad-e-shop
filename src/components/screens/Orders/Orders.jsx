@@ -93,7 +93,7 @@ const Orders = () => {
 
   const handleSaveAddress = async (e) => {
     e.preventDefault();
-    const { name, contact, street, city, state, zip } = newAddress;
+    const { name, contactNumber, street, city, state, zipcode } = newAddress;
     // if (!name || !contact || !street || !city || !state || !zip) {
     //   //   setShowAlert(true);
     //   return;
@@ -103,7 +103,7 @@ const Orders = () => {
     if (res.error) {
       showNotification(`Error occurred while saving the address`, "error");
     } else {
-      const formattedAddress = `${name}, ${contact}, ${street}, ${city}, ${state}, ${zip}`;
+      const formattedAddress = `${name}, ${contactNumber}, ${street}, ${city}, ${state}, ${zipcode}`;
       setAddresses([...addresses, formattedAddress]);
       setNewAddress({
         name: "",
@@ -129,22 +129,24 @@ const Orders = () => {
         product: orderDetails?.id,
         address: address?.id,
       };
-      const { data, error } = await OrderApi.placeOrder(payload);
+      const { error } = await OrderApi.placeOrder(payload);
       if (!error) {
         showNotification("Order Placed Successfully", "success");
+        navigate("/products");
       } else {
         showNotification(
           "Error occurred while placing the order. Please try again",
           "error"
         );
       }
-      console.log("[PLACE ORDER] ", data);
     }
   };
 
   useEffect(() => {
     if (!address) {
       setErrorObj(validateAddress(newAddress));
+    } else {
+      setErrorObj({ isPristine: true });
     }
   }, [newAddress, address]);
 
@@ -267,7 +269,10 @@ const Orders = () => {
                 name="zipcode"
                 value={newAddress.zip}
                 onChange={handleFormChange}
-                error={!errorObj.isPristine && !errorObj?.zipcode?.isValid}
+                error={
+                  (!errorObj.isPristine && !errorObj?.zipcode?.isValid) ||
+                  !address
+                }
               />
 
               <Button

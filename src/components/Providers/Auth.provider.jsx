@@ -14,10 +14,9 @@ const AuthProvider = ({ children }) => {
 
   const login = async (formData) => {
     try {
-      const res = await Authentication.login(formData);
-      if (res?.data && res?.data.token) {
-        saveToStorage("session", { email: formData?.username });
-        saveToStorage("token", res?.data.token);
+      const { data } = await Authentication.login(formData);
+      if (data) {
+        saveToStorage("session", data);
         setIsLoggedIn(true);
         if (window && window.location) {
           window.location.href = "/products";
@@ -45,7 +44,7 @@ const AuthProvider = ({ children }) => {
 
   const getIsAdmin = useCallback((user) => {
     const adminRole = user?.roles?.find(
-      (role) => role?.name?.toLowerCase() === "admin"
+      (role) => role?.toLowerCase() === "admin"
     );
     if (!!adminRole) setIsAdmin(true);
   }, []);
@@ -53,27 +52,23 @@ const AuthProvider = ({ children }) => {
   const getUserDetails = useCallback(async () => {
     const session = getItemFromStorage("session");
     if (session) {
-      const res = await Authentication.getUserDetails(session.email);
-      setUser(res?.data);
-      if (res?.data) {
-        saveToStorage("user", res?.data);
-        getIsAdmin(res?.data);
-      }
+      setUser(session);
+      getIsAdmin(session);
     }
-  }, []);
-
-  useEffect(() => {
-    const token = getItemFromStorage("token");
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  }, [getIsAdmin]);
 
   useEffect(() => {
     if (isLoggedIn) {
       getUserDetails();
     }
   }, [isLoggedIn, getUserDetails]);
+
+  useEffect(() => {
+    const session = getItemFromStorage("session");
+    if (session) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <AuthContext.Provider
