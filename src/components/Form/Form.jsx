@@ -15,6 +15,7 @@ const Form = ({
   linkPosition,
   linkCta,
   linkUrl,
+  customHandler,
 }) => {
   const [error, setError] = useState({ isPristine: true });
   const [disableSubmitButton, setDisableSubmitButton] = useState(true);
@@ -46,6 +47,7 @@ const Form = ({
           onChange={formHandler}
           value={formData[field?.name]}
           error={!!formData[field?.name] && !error[field?.name]?.isValid}
+          customHandler={customHandler}
           {...field}
         />
       ))}

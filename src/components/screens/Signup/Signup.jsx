@@ -67,7 +67,7 @@ const SignupPage = () => {
 
   return (
     <PageLayout containerSize="sm" topMargin="4em">
-      <LockIcon label="Sign in" />
+      <LockIcon label="Sign up" />
       <Form
         fields={fields}
         buttonCta="SIGN UP"

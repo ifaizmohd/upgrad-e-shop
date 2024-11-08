@@ -1,14 +1,31 @@
 import { Typography } from "@mui/material";
 import PageLayout from "../../PageLayout/PageLayout";
 import Form from "../../Form/Form";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ProductsApi } from "../../../common/api";
 import { useNotification } from "../../Providers/Notification.provider";
 import { checkForSessionErrors } from "../../../common/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/Auth.context";
+import { useStore } from "../../Providers/Store.provider";
 
 const AddProduct = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    category: "",
+    price: 0,
+    description: "",
+    manufacturer: "",
+    imageUrl: "",
+    availableItems: 0,
+  });
+
+  const [categories, setCategories] = useState();
+  const { showNotification } = useNotification();
+  const navigate = useNavigate();
+  const { logout } = useContext(AuthContext);
+  const { getValue } = useStore();
+
   const fields = [
     {
       type: "text",
@@ -16,9 +33,10 @@ const AddProduct = () => {
       name: "name",
     },
     {
-      type: "text",
+      type: "select",
       label: "Category",
       name: "category",
+      options: categories,
     },
     {
       type: "number",
@@ -46,22 +64,15 @@ const AddProduct = () => {
       name: "availableItems",
     },
   ];
-  const [formData, setFormData] = useState({
-    name: "",
-    category: "",
-    price: 0,
-    description: "",
-    manufacturer: "",
-    imageUrl: "",
-    availableItems: 0,
-  });
-
-  const { showNotification } = useNotification();
-  const navigate = useNavigate();
-  const { logout } = useContext(AuthContext);
 
   const handleFormChange = (e) => {
+    e.preventDefault();
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleCategory = (e, val) => {
+    e.preventDefault();
+    setFormData({ ...formData, category: val });
   };
 
   const handleFormSubmit = async (e) => {
@@ -78,6 +89,10 @@ const AddProduct = () => {
     }
   };
 
+  useEffect(() => {
+    setCategories(getValue("categories"));
+  }, [getValue]);
+
   return (
     <PageLayout containerSize="sm" topMargin="4em">
       <Typography>Add Product</Typography>
@@ -87,6 +102,7 @@ const AddProduct = () => {
         formData={formData}
         formHandler={handleFormChange}
         handleSubmit={handleFormSubmit}
+        customHandler={handleCategory}
       />
     </PageLayout>
   );

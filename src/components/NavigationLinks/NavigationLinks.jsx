@@ -23,9 +23,6 @@ const NavigationLinks = () => {
             Login
           </Link>
         )}
-        <Link className="nav-link" to="/products">
-          Products
-        </Link>
         {isAdmin ? (
           <Link className="nav-link" to="/add-product">
             Add Products

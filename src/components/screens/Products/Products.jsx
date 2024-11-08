@@ -78,7 +78,7 @@ const ProductsPage = () => {
   }, [filteredProducts, sortBy]);
 
   return (
-    <PageLayout containerSize="xl">
+    <PageLayout containerSize="lg">
       {error && <Typography color="error">{error}</Typography>}
       <ProductCategories
         selectedCategory={selectedCategory}
