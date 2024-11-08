@@ -87,21 +87,31 @@ const ProductsPage = () => {
       <Box
         display="flex"
         sx={{
-          position: "relative",
-          right: 700,
+          alignSelf: "flex-start",
           width: "600",
           height: "auto",
           padding: "16px",
         }}
       >
-        <Select value={sortBy} onChange={handleSortChange}>
+        <Select
+          value={sortBy}
+          onChange={handleSortChange}
+          sx={{ width: "144px" }}
+        >
           <MenuItem value="Default">Sort By</MenuItem>
           <MenuItem value="Price: High to Low">Price: High to Low</MenuItem>
           <MenuItem value="Price: Low to High">Price: Low to High</MenuItem>
           <MenuItem value="Newest">Newest</MenuItem>
         </Select>
       </Box>
-      <Grid container spacing={12}>
+      <Grid
+        container
+        spacing={6}
+        columns={3}
+        direction="row"
+        justifyContent="flex-start"
+        alignSelf="flex-start"
+      >
         {sortedProducts?.map((product) => (
           <Grid key={product?.id} xs={12} sm={6} md={4}>
             <ProductCard
