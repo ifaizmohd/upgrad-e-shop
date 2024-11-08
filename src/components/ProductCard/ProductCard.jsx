@@ -43,11 +43,11 @@ const ProductCard = ({ product, refetchProducts }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, maxHeight: 445 }}>
+    <Card sx={{ width: 345, height: "auto" }}>
       <CardMedia
         component="img"
         alt={name}
-        height="140"
+        height="200"
         image={imageUrl}
         sx={{ objectFit: "contain" }}
       />

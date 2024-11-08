@@ -52,7 +52,13 @@ const ProductDetailPage = () => {
           }}
         >
           <Box sx={{ display: "flex", gap: 2 }}>
-            <Typography variant="h5">{productInfo?.name}</Typography>
+            <Typography
+              variant="h5"
+              sx={{ maxWidth: { lg: "240px" } }}
+              noWrap={true}
+            >
+              {productInfo?.name}
+            </Typography>
             <Typography
               variant="caption"
               component="span"
